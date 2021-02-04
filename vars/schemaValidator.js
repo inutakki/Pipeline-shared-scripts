@@ -1,1 +1,4 @@
-console.log("suceess running JavaScript file")
+function hello(){
+console.log("suceess running JavaScript file");
+}
+hello();
