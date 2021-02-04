@@ -8,6 +8,6 @@ def call(){
         writeFile file: "validatorTest.js", text: validatorTest
     sh "npm install";
     sh "node validatorTest.js"
-    //def value = sh(returnStdout: true, script: "node validatorTest.js")
+    //def value = sh(returnStdout: true, script: "node validatorTest.js ")
     //return value;
 }

@@ -49,6 +49,7 @@ if(a){
     return result;
     }
 }
+console.log(argv[2]);
  return validate(apiFile, false);
 
  
