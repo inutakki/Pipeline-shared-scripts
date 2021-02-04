@@ -10,5 +10,5 @@ def call(def apiFile){
     //sh "node validatorTest.js ${apiFile} > testResults"
 	//console.log("testResults: ${testResults}"
     def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile}").split("\r?\n")    
-return apiResult[0piResult.length -1];
+return apiResult[apiResult.length -1];
 }
