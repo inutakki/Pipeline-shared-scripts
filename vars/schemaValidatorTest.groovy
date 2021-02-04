@@ -1,6 +1,6 @@
 def call(){
 
-    def package = libraryResource 'openApiSChema/package.js'
+    def package = libraryResource 'openApiSChema/package.json'
        writeFile file: "package.json" text: package
     def zschemaValidator = libraryResource 'openApiSChema/zschemaValidator.js'
        writeFile file: "zschemaValidator.js" text: package  
