@@ -7,7 +7,7 @@ def call(def apiFile){
     def validatorTest = libraryResource 'openApiSChema/validatorTest.js'
         writeFile file: "validatorTest.js", text: validatorTest
     sh "npm install";
-    sh "node validatorTest.js ${apiFile}"
-    //def value = sh(returnStdout: true, script: "node validatorTest.js ${apiFile}")
-    //return value;
+    //sh "node validatorTest.js ${apiFile}"
+    def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile}")
+    return apiResult;
 }
