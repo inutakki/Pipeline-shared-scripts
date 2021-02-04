@@ -1,4 +1,5 @@
 def call(def apiFile = "./definitions/swagger.yml"){
+import groovy.json.JsonSlurperClassic;
 
     def test = libraryResource 'openApiSChema/package.json'
        writeFile file: "package.json", text: test
@@ -8,5 +9,8 @@ def call(def apiFile = "./definitions/swagger.yml"){
         writeFile file: "validatorTest.js", text: validatorTest
     sh "npm install";
     def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile}").split("\r?\n")    
+       def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
+     println("Inside Groovy function: "+ jsonResult.validated)
+
 return apiResult[apiResult.length -1];
 }
