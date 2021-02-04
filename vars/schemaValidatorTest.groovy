@@ -6,6 +6,7 @@ def call(){
        writeFile file: "zschemaValidator.js", text: zschemaValidator  
     def validatorTest = libraryResource 'openApiSChema/validatorTest.js'
         writeFile file: "validatorTest.js", text: validatorTest
-    sh "npm install";
-    sh(returnStdout: true, script: "node validatorTest.js").trim();
+    //sh "npm install";
+    //def value = sh(returnStdout: true, script: "node validatorTest.js")
+    //return value;
 }
