@@ -1,4 +1,4 @@
-def call(def apiFile = "./definitions/swagger.yml"d){
+def call(def apiFile = "./definitions/swagger.yml"){
 
     def test = libraryResource 'openApiSChema/package.json'
        writeFile file: "package.json", text: test
