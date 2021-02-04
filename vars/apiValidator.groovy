@@ -8,6 +8,6 @@ def call(def apiFile){
         writeFile file: "validatorTest.js", text: validatorTest
     sh "npm install";
     //sh "node validatorTest.js ${apiFile}"
-    def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile}")
-    return apiResult;
+    def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile}").split("\r?\n")    
+return apiResult;
 }
