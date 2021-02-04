@@ -1,5 +1,5 @@
+import groovy.json.JsonSlurperClassic
 def call(def apiFile = "./definitions/swagger.yml"){
-import groovy.json.JsonSlurperClassic;
 
     def test = libraryResource 'openApiSChema/package.json'
        writeFile file: "package.json", text: test
