@@ -8,44 +8,24 @@ const path = require("path");
 
 
 module.exports = validateSchema;
-let zSchema = initializeZSchema();
-
-/**
- * extends the standard spec doc schema with KP's own special x- vendor tags
- * @param standardSchema
- * @returns {extendedSchema}
- */
-function extendStandardSchema(standardSchema){
-    let KPOASExtension = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../../schemas/KPOASExtension.yaml'), 'utf8'));
-
-    //Append custom KP policy definitions
-    Object.assign(standardSchema.definitions, KPOASExtension.definitions);
-    //Apend x-custom-sharedflows schema to top-level schema properties
-    Object.assign(standardSchema.properties, KPOASExtension.properties);
-    //Overwrite top-level "x-" pattern to ignore exact string: x-custom-sharedflows. This allows schema validation of this custom variable.
-    standardSchema.patternProperties = KPOASExtension.patternProperties;
-
-    return standardSchema
-}
+let zSchema = initializeZSchema()
 
 /**
  * Validates the given Swagger API against the OpenApi 3.0.0 schema.
  *
  * @param {SwaggerObject} api
  */
-function validateSchema (api, customSchema) {
-    // Choose the appropriate schema (Swagger or OpenAPI or Custom)
-    console.log("inside ZschemaValidator with ValidateSchema");
+function validateSchema (api) {
+    // Choose the appropriate schema (Swagger or OpenAPI )
     let schema;
     if(api) {
         schema = api.swagger ? openapi.v2 : openapi.v3;
     } else {
         throw('invalid or missing api object input to schema validator')
     }
-    //schema = customSchema ? customSchema : extendStandardSchema(schema); // use own schema or take in a different schema
 
     let tempAPI = JSON.parse(JSON.stringify(api));
-    console.log("tempAPi" + tempAPI);
+
     // Validate against the schema
     let isValid = zSchema.validate(tempAPI, schema);
     if (!isValid) {
