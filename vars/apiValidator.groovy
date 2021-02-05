@@ -8,9 +8,10 @@ def call(def apiFile = "./definitions/swagger.yml"){
     def validatorTest = libraryResource 'openApiSChema/validatorTest.js'
         writeFile file: "validatorTest.js", text: validatorTest
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
-    sh "npm install";
+    
     def apiResult;
     dir("${pwd}"){
+        sh "npm install";
          apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n")    
        println("result: " + apiResult);
     }
