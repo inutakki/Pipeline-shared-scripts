@@ -36,7 +36,7 @@ async function validate (apiFile, isConfig) {
             console.log(e);
         }
     }
-    isValid =  ZschemaValidator(apiJSON);
+    let isValid =  ZschemaValidator(apiJSON);
     console.log(isValid);
     if(isValid){
         const result =  JSON.stringify({ "validated": isValid,
