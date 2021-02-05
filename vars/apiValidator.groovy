@@ -17,10 +17,10 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("Inside Groovy function: "+ jsonResult.validated)
         println("SUccessfully Completed api SChema Validation")
         
-       println("apiResult:" + result);
+       println("apiResult:" + apiResult);
        def testResult;
        sh "node validatorTest.js ${apiFile} ${commitHash} > testResult"
-       println("testResult:" + testResult);
+    
     } catch(error){
         //console.log(error);
         println(error)
