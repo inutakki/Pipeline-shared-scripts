@@ -30,9 +30,9 @@ async function validate (apiFile, isConfig) {
     } else {
         try {
             apiJSON = await SwaggerParser.parse(apiFile);
-            //console.log("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
+            console.log("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
         } catch (e) {
-            //console.log(e);
+            console.log(e);
             throw e;
         }
     }
@@ -55,7 +55,7 @@ if(isValid){
     "message": `${apiJSON.info.title} validated with open API schema for ${commitId}`
 
     })
-    //console.log(result);
+    console.log(result);
     return result;
     }
 }
