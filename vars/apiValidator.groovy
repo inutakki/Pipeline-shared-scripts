@@ -10,8 +10,13 @@ def call(def apiFile = "./definitions/swagger.yml"){
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     try{
 
-        //sh "npm install";
-        //def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
+        sh "npm install";
+        def apiResult  = sh(returnStdout: true, script: "node precommit-dod/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
+         println("result: " + apiResult);
+        def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
+        println("Inside Groovy function: "+ jsonResult.validated)
+        println("SUccessfully Completed api SChema Validation")
+        
         /*def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n")       
         println("result: " + apiResult);
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
@@ -19,10 +24,10 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("SUccessfully Completed api SChema Validation")
         
        println("apiResult:" + apiResult);*/
-       def testResult;
+       /*def testResult;
        sh "cd precommit-dod; npm install; node validatorTest.js ../${apiFile} ${commitHash} > testResult"
-        def a = readJson text: precommit-dod/testResult;
-        println("${a}");
+        def a = readJson text: testResult;
+        println("${a}");*/
     } catch(error){
         
         println(error)
