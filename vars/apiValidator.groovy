@@ -13,10 +13,8 @@ def call(def apiFile = "./definitions/swagger.yml"){
     dir("${pwd}"){
         sh "npm install";
          apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n")    
-       println("result: " + apiResult);
     }
-       // println("result: " + result1);
-       def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
+    def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
      println("Inside Groovy function: "+ jsonResult.validated)
 
 return apiResult[apiResult.length -1];
