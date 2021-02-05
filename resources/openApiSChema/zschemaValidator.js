@@ -69,7 +69,7 @@ function initializeZSchema () {
 
     // Configure ZSchema
     return new ZSchema({
-        breakOnFirstError: true,
+        breakOnFirstError: false,
         noExtraKeywords: true,
         ignoreUnknownFormats: false,
         reportPathAsArray: true
