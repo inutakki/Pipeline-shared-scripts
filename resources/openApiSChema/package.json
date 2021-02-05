@@ -13,6 +13,7 @@
     "js-yaml": "^4.0.0",
     "openapi-schemas": "^2.0.4",
     "path": "^0.12.7",
+    "shelljs": "^0.8.4",
     "swagger-parser": "^10.0.2",
     "util": "^0.12.3",
     "z-schema": "^5.0.0"

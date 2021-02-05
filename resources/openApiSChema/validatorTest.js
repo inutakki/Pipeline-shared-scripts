@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require("path");
 const apiValidator = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
-
+var shell = require('shelljs');
 
 const apiFile = `${process.argv[2]}`
 const commitId = `${process.argv[3]}`
@@ -28,12 +28,18 @@ async function validate (apiFile, isConfig) {
     } else {
         try {
             apiJSON = await SwaggerParser.parse(apiFile);
-            console.log("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
+            shell.echo("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
         } catch (e) {
-            console.log(e);
+            shell.log(e);
         }
     }
-const isValid =  apiValidator(apiJSON, null);
+try{    
+    const isValid =  apiValidator(apiJSON, null);
+} catch(e){
+
+    throw new Error('Required');  // generates an error object with the message of Required
+
+}
 if(isValid){
    const result =  JSON.stringify({"validated": `${isValid}`,
     "DODItem": "OpenAPISchemaValidation",
@@ -44,8 +50,8 @@ if(isValid){
     "status": "Passed",
     "message": `${apiJSON.info.title} validated with open API schema for ${commitId}`
 
-    } )
-    console.log(result);
+    })
+    shell.log(result);
     return result;
     }
 }
