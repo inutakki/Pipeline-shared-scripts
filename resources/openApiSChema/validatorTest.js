@@ -40,6 +40,7 @@ async function validate (apiFile, isConfig) {
 try{    
      isValid =  apiValidator(apiJSON, null);
 } catch(error){
+    console.log("in error catch block");
     //console.log(JSON.stringify(error))
     throw error;  // generates an error object 
 
@@ -56,11 +57,20 @@ if(isValid){
 
     })
     console.log(result);
-    return result;
     }
+else{
+    const result =  JSON.stringify({"validated": `${isValid}`,
+    "DODItem": "OpenAPISchemaValidation",
+    "Description": "Validates API specification with open API SChema",
+    "API name": apiJSON.info.title,
+    "squad": "undefined",
+    "commitID": commitId,
+    "status": "Failed",
+    "message": `${apiJSON.info.title} validated with open API schema for ${commitId}`
+    })
+    console.log(result);
+    }
+    return result;
 }
-try{
- return validate(apiFile, false);
-}catch(err){
-    throw err;
-}
+
+ validate(apiFile, false);

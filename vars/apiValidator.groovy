@@ -23,7 +23,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
        sh "cd precommit-dod; npm install; node validatorTest.js ../${apiFile} ${commitHash} > testResult"
     
     } catch(error){
-        //console.log(error);
+        
         println(error)
         throw error
         //currentBuild.result = 'FAILED'
