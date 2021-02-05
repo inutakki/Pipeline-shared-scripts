@@ -16,7 +16,9 @@ def call(def apiFile = "./definitions/swagger.yml"){
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
         println("Inside Groovy function: "+ jsonResult.validated)
         println("SUccessfully Completed api SChema Validation")*/
-        sh "node validatorTest.js ${apiFile} ${commitHash}"
+        sh "node validatorTest.js ${apiFile} ${commitHash}" > result
+       def apiResult =  readJson text:result
+       println("apiResult:" + result);
     } catch(error){
         //console.log(error);
         println(error)
