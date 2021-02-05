@@ -20,8 +20,9 @@ def call(def apiFile = "./definitions/swagger.yml"){
         
        println("apiResult:" + apiResult);*/
        def testResult;
-       sh "cd precommit-dod; npm install; node validatorTest.js ../${apiFile} ${commitHash} > testResult"
-    
+       sh "cd precommit-dod; npm install; node validatorTest.js ../${apiFile} ${commitHash} > precommit-dod/testResult"
+        def a = readJson text: precommit-dod/testResult;
+        println("${a}");
     } catch(error){
         
         println(error)
@@ -29,5 +30,5 @@ def call(def apiFile = "./definitions/swagger.yml"){
         //currentBuild.result = 'FAILED'
     }
 
-//return apiResult[apiResult.length -1];
+return apiResult[apiResult.length -1];
 }
