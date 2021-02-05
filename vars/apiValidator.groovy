@@ -18,6 +18,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("SUccessfully Completed api SChema Validation")
     } catch(error){
         //console.log(error);
+        println(error)
         throw error
         //currentBuild.result = 'FAILED'
     }
