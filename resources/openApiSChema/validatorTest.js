@@ -5,12 +5,14 @@ const { openapi } = require("openapi-schemas");
 const yaml = require("js-yaml");
 const fs = require('fs');
 const path = require("path");
-const ZschemaValidator = require("./zschemaValidator.js")
+const schemaValidator = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
 
 let apiFile = "./definitions/swagger.yml"
 if(process.argv[2] != null){
+    
     apiFile = process.argv[2]
+    console.log("apiFile: ${apiFile}")
 }
 let commitId;
 if(process.argv[3] != null){
@@ -24,22 +26,22 @@ async function validate (apiFile) {
     }
     let apiJSON;
     let schema = undefined;
-    /*if(isConfig){
+    if(isConfig){
         apiJSON = SwaggerParser.YAML.parse(fs.readFileSync(apiFile, 'utf8'));
 
         const schemaObject = fs.readFileSync(path.resolve(__dirname, '../schemas/OAS_Config.yaml'), 'utf8');
         schema = SwaggerParser.YAML.parse(schemaObject);
-    } else {*/
+    } else {
         try {
             apiJSON = await SwaggerParser.parse(apiFile);
-            //console.log("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
+            console.log("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
         } catch (e) {
             console.log(e);
         }
-    //}
-const isValid =  ZschemaValidator(apiJSON, null);
-if(isValid){
-   const result =  JSON.stringify({"validated": `${isValid}`,
+    }
+const a =  schemaValidator(apiJSON, null);
+if(a){
+   const result =  JSON.stringify({"validated": `${a}`,
     "DODItem": "OpenAPISchemaValidation",
     "Description": "Validates API specification with open API SChema",
     "API name": apiJSON.info.title,
