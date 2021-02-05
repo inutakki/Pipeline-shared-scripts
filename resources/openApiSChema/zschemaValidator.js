@@ -35,7 +35,6 @@ function extendStandardSchema(standardSchema){
  */
 function validateSchema (api, customSchema) {
     // Choose the appropriate schema (Swagger or OpenAPI or Custom)
-    console.log("inside ZschemaValidator with ValidateSchema");
     let schema;
     if(api) {
         schema = api.swagger ? openapi.v2 : openapi.v3;
@@ -45,7 +44,6 @@ function validateSchema (api, customSchema) {
     //schema = customSchema ? customSchema : extendStandardSchema(schema); // use own schema or take in a different schema
 
     let tempAPI = JSON.parse(JSON.stringify(api));
-    console.log("tempAPi" + tempAPI);
     // Validate against the schema
     let isValid = zSchema.validate(tempAPI, schema);
     if (!isValid) {

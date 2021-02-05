@@ -40,7 +40,7 @@ if(a){
     "Description": "Validates API specification with open API SChema",
     "API name": apiJSON.info.title,
     "squad": "undefined",
-    "commitID": "commitID",
+    "commitID": process.argv[3],
     "status": "Passed",
     "message": `${apiJSON.info.title}` + " validated with open API schema for commitID"
 
