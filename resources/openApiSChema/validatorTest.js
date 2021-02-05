@@ -32,7 +32,7 @@ async function validate (apiFile, isConfig) {
             console.log(e);
         }
     }
-const a =  validator1(apiJSON, null);
+const a =  validator1.validate(apiJSON, null);
 console.log("updated "+ a);
 if(a){
    const result =  JSON.stringify({"validated": a,
