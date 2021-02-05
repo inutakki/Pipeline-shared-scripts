@@ -10,7 +10,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     try{
         sh "npm install";
-        def command = "node validatorTest.js";
+        def command = "node ./validatorTest.js";
         def proc = command.execute() 
         proc.waitFor()
         println "return code: ${ proc.exitValue()}"
