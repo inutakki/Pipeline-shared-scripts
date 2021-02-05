@@ -36,9 +36,9 @@ async function validate (apiFile, isConfig) {
  let isValid;       
 try{    
      isValid =  apiValidator(apiJSON, null);
-} catch(e){
-
-    throw e.getMessage().source;  // generates an error object with the message of Required
+} catch(error){
+    console.log(error[0].stack)
+    throw error[0].stack;  // generates an error object with the message of Required
 
 }
 if(isValid){
