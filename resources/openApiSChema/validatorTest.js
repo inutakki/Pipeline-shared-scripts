@@ -44,9 +44,9 @@ if(isValid){
     "Description": "Validates API specification with open API SChema",
     "API name": apiJSON.info.title,
     "squad": "undefined",
-    "commitID": commitId,
+    "commitID": `${commitId}`,
     "status": "Passed",
-    "message": `${apiJSON.info.title}  validated with open API schema for ${process.argv[3]}`
+    "message": `${apiJSON.info.title}  validated with open API schema for ${commitId}`
 
     } )
     console.log(result);
