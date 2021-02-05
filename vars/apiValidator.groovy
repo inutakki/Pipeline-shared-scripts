@@ -7,7 +7,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
        writeFile file: "zschemaValidator.js", text: zschemaValidator  
     def validatorTest = libraryResource 'openApiSChema/validatorTest.js'
         writeFile file: "validatorTest.js", text: validatorTest
-        def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
+    def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     
     def apiResult;
     dir("${pwd}"){

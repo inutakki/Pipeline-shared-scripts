@@ -14,36 +14,33 @@ if(process.argv[2] != null){
 }
 const isConfig = false;
 
-async function validate (apiFile, isConfig) {
-    console.log("inside Function");
+async function validate (apiFile) {
     if (!(fs.existsSync(apiFile, 'utf8'))) {
         throw Error(`api spec doc file does not exist: ${apiFile}`)
     }
     let apiJSON;
     let schema = undefined;
-    if(isConfig){
+    /*if(isConfig){
         apiJSON = SwaggerParser.YAML.parse(fs.readFileSync(apiFile, 'utf8'));
 
         const schemaObject = fs.readFileSync(path.resolve(__dirname, '../schemas/OAS_Config.yaml'), 'utf8');
         schema = SwaggerParser.YAML.parse(schemaObject);
-    } else {
+    } else {*/
         try {
-            //apiJSON = await parser(apiFile);
             apiJSON = await SwaggerParser.parse(apiFile);
             console.log("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
         } catch (e) {
             console.log(e);
         }
-    }
+    //}
 const isValid =  validator1(apiJSON, null);
-//console.log(`updated ${isValid}`);
 if(isValid){
    const result =  JSON.stringify({"validated": `${isValid}`,
     "DODItem": "OpenAPISchemaValidation",
     "Description": "Validates API specification with open API SChema",
     "API name": apiJSON.info.title,
     "squad": "undefined",
-    "commitID": process.argv[3],
+    "commitID": `${process.argv[3]}`,
     "status": "Passed",
     "message": `${apiJSON.info.title}  validated with open API schema for ${process.argv[3]}`
 
@@ -52,5 +49,5 @@ if(isValid){
     return result;
     }
 }
-console.log(process.argv[2]);
- return validate(apiFile, false);
+//console.log(process.argv[2]);
+ return validate(apiFile);
