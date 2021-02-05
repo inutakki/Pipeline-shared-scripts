@@ -38,7 +38,7 @@ try{
      isValid =  apiValidator(apiJSON, null);
 } catch(e){
 
-    throw new Error('Required');  // generates an error object with the message of Required
+    throw e.getMessage();  // generates an error object with the message of Required
 
 }
 if(isValid){
