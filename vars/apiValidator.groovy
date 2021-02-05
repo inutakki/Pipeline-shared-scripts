@@ -8,11 +8,12 @@ def call(def apiFile = "./definitions/swagger.yml"){
     def validatorTest = libraryResource 'openApiSChema/validatorTest.js'
         writeFile file: "precommit-dod/validatorTest.js", text: validatorTest
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
+    def apiResult
     try{
 
         sh "npm install";
-        def apiResult  = sh(returnStdout: true, script: "node precommit-dod/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
-         println("result: " + apiResult);
+        apiResult  = sh(returnStdout: true, script: "node precommit-dod/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
+        println("result: " + apiResult);
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
         println("Inside Groovy function: "+ jsonResult.validated)
         println("SUccessfully Completed api SChema Validation")
