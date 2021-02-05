@@ -37,13 +37,14 @@ async function validate (apiFile, isConfig) {
         }
     }
     const isValid =  ZschemaValidator(apiJSON);
+    console.log(isValid);
     if(isValid){
-        const result =  JSON.stringify({"validated": isValid,
+        const result =  JSON.stringify({"validated": `${isValid}`,
         "DODItem": "OpenAPISchemaValidation",
         "Description": "Validates API specification with open API SChema",
-        "API name": apiJSON.info.title,
+        "API name": `${apiJSON.info.title}`,
         "squad": "undefined",
-        "commitID": commitId,
+        "commitID": `${commitId}`,
         "status": "Passed",
         "message": `${apiJSON.info.title} successfully validated with open API schema for ${commitId}`
         })
