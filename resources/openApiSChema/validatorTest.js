@@ -8,9 +8,11 @@ const path = require("path");
 const ZschemaValidator = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
 
-//let apiFile = "./definitions/swagger.yaml"
 
-let apiFile = process.argv[2]
+
+const apiFile = process.argv[2]
+const commitId = process.argv[3]
+
 const isConfig = false;
 
 async function validate (apiFile, isConfig) {
@@ -35,14 +37,14 @@ async function validate (apiFile, isConfig) {
     }
     const isValid =  ZschemaValidator(apiJSON);
     if(isValid){
-        const result =  JSON.stringify({"validated": a,
+        const result =  JSON.stringify({"validated": isValid,
         "DODItem": "OpenAPISchemaValidation",
         "Description": "Validates API specification with open API SChema",
         "API name": apiJSON.info.title,
         "squad": "undefined",
-        "commitID": "commitID",
+        "commitID": commitId,
         "status": "Passed",
-        "message": apiJSON.info.title + " successfully validated with open API schema for commitID"
+        "message": `${apiJSON.info.title} successfully validated with open API schema for ${commitId}`
         })
         return result;
     }
