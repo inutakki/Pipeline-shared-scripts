@@ -20,7 +20,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         
        println("apiResult:" + apiResult);*/
        def testResult;
-       sh "cd precommit-dod; npm install; node validatorTest.js ../${apiFile} ${commitHash} > precommit-dod/testResult"
+       sh "cd precommit-dod; npm install; node validatorTest.js ../${apiFile} ${commitHash} > testResult"
         def a = readJson text: precommit-dod/testResult;
         println("${a}");
     } catch(error){
