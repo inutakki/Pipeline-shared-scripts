@@ -11,12 +11,12 @@ def call(def apiFile = "./definitions/swagger.yml"){
     def apiResult
     try{
 
-        sh "npm install";
+        sh "cd precommit-dod; npm install";
         apiResult  = sh(returnStdout: true, script: "node precommit-dod/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
         println("result: " + apiResult);
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
-        println("Inside Groovy function: "+ jsonResult.validated)
-        println("SUccessfully Completed api SChema Validation")
+        println("Inside Groovy function: "+ jsonResult.validated);
+        println("SUccessfully Completed api SChema Validation");
         
         /*def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n")       
         println("result: " + apiResult);
