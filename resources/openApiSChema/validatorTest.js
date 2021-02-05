@@ -8,15 +8,13 @@ const path = require("path");
 const validator1 = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
 
-//const apiFile = "./definitions/swagger.yaml"
-let apiFile = "./definitions/swagger.yml"
-if(`${process.argv[2]}` != null ){
-    apiFile = `${process.argv[2]}`
-}
+
+const apiFile = `${process.argv[2]}`
+const commitId = `${process.argv[3]}`
+
 const isConfig = false;
 
 async function validate (apiFile, isConfig) {
-    //console.log("inside Function");
     if (!(fs.existsSync(apiFile, 'utf8'))) {
         throw Error(`api spec doc file does not exist: ${apiFile}`)
     }
@@ -36,22 +34,21 @@ async function validate (apiFile, isConfig) {
             console.log(e);
         }
     }
-const a =  validator1(apiJSON, null);
+const isValid =  validator1(apiJSON, null);
 //console.log(`updated ${a}`);
-if(a){
-   const result =  JSON.stringify({"validated": `${a}`,
+if(isValid){
+   const result =  JSON.stringify({"validated": `${isValid}`,
     "DODItem": "OpenAPISchemaValidation",
     "Description": "Validates API specification with open API SChema",
     "API name": apiJSON.info.title,
     "squad": "undefined",
-    "commitID": process.argv[3],
+    "commitID": commitId,
     "status": "Passed",
-    "message": `${apiJSON.info.title}` + " validated with open API schema for commitID"
+    "message": `${apiJSON.info.title}  validated with open API schema for ${commitId}`
 
     } )
     console.log(result);
     return result;
     }
 }
-console.log(process.argv[2]);
  return validate(apiFile, false);
