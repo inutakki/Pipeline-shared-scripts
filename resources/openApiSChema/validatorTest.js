@@ -5,7 +5,7 @@ const { openapi } = require("openapi-schemas");
 const yaml = require("js-yaml");
 const fs = require('fs');
 const path = require("path");
-const validator1 = require("./zschemaValidator.js")
+const ZschemaValidator = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
 
 let apiFile = "./definitions/swagger.yaml"
@@ -37,8 +37,8 @@ async function validate (apiFile, isConfig) {
             console.log(e);
         }
     }
-const a =  validator1(apiJSON, null);
-console.log("updated "+ a);
+const a =  ZschemaValidator(apiJSON, null);
+
 if(a){
    const result =  JSON.stringify({"validated": `${a}`,
     "DODItem": "OpenAPISchemaValidation",
