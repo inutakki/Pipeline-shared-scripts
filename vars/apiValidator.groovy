@@ -10,17 +10,18 @@ def call(def apiFile = "./definitions/swagger.yml"){
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     try{
         sh "npm install";
-        def command = "npm run start";
+        /*def command = "npm run start";
         def proc = command.execute() 
         proc.waitFor()
         println "return code: ${ proc.exitValue()}"
         println "stderr: ${proc.err.text}"
-        println "stdout: ${proc.in.text}"
-       /* def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n")    
+        println "stdout: ${proc.in.text}"*/
+        //def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
+        def apiResult  = sh(returnStdout: true, script: "npm run start ${apiFile} ${commitHash}").split("\r?\n")       
         println("result: " + apiResult);
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
         println("Inside Groovy function: "+ jsonResult.validated)
-        println("SUccessfully Completed api SChema Validation")*/
+        println("SUccessfully Completed api SChema Validation")
     } catch(error){
         //console.log(error);
         println(error)
