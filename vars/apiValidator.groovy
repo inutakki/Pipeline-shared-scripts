@@ -17,7 +17,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println "stderr: ${proc.err.text}"
         println "stdout: ${proc.in.text}"*/
         //def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
-        def apiResult  = sh(returnStdout: false, script: "npm run start ${apiFile} ${commitHash}").split("\r?\n")       
+        def apiResult  = sh(returnStdout: true, script: "npm run start ${apiFile} ${commitHash}").split("\r?\n")       
         println("result: " + apiResult);
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
         println("Inside Groovy function: "+ jsonResult.validated)
