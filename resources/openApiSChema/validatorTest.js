@@ -8,7 +8,11 @@ const path = require("path");
 const validator1 = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
 
-const apiFile = "./definitions/swagger.yaml"
+//const apiFile = "./definitions/swagger.yaml"
+let apiFile = "./definitions/swagger.yml"
+if(`${process.argv[2]}` != null ){
+    apiFile = `${process.argv[2]}`
+}
 const isConfig = false;
 
 async function validate (apiFile, isConfig) {
