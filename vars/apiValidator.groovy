@@ -10,7 +10,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     sh "npm install";
     def apiResult;
-    dir(${pwd}){
+    dir("${pwd}"){
          apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n")    
        println("result: " + apiResult);
     }
