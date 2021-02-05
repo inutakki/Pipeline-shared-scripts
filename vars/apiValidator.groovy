@@ -17,7 +17,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("Inside Groovy function: "+ jsonResult.validated)
         println("SUccessfully Completed api SChema Validation")
     } catch(error){
-        console.log(error);
+        //console.log(error);
         throw error
         //currentBuild.result = 'FAILED'
     }
