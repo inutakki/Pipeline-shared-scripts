@@ -5,54 +5,94 @@ const { openapi } = require("openapi-schemas");
 const yaml = require("js-yaml");
 const fs = require('fs');
 const path = require("path");
-const validator1 = require("./zschemaValidator.js")
-const SwaggerParser = require("swagger-parser");
 
-let apiFile = "./definitions/swagger.yaml"
-if(process.argv[2]){
-    console.log(process.argv[2]);
-    apiFile = process.argv[2];
+
+module.exports = validateSchema;
+let zSchema = initializeZSchema();
+
+/**
+ * extends the standard spec doc schema with KP's own special x- vendor tags
+ * @param standardSchema
+ * @returns {extendedSchema}
+ */
+function extendStandardSchema(standardSchema){
+    let KPOASExtension = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../../schemas/KPOASExtension.yaml'), 'utf8'));
+
+    //Append custom KP policy definitions
+    Object.assign(standardSchema.definitions, KPOASExtension.definitions);
+    //Apend x-custom-sharedflows schema to top-level schema properties
+    Object.assign(standardSchema.properties, KPOASExtension.properties);
+    //Overwrite top-level "x-" pattern to ignore exact string: x-custom-sharedflows. This allows schema validation of this custom variable.
+    standardSchema.patternProperties = KPOASExtension.patternProperties;
+
+    return standardSchema
 }
- 
-const isConfig = false;
 
-async function validate (apiFile, isConfig) {
-    console.log("inside Function");
-    if (!(fs.existsSync(apiFile, 'utf8'))) {
-        throw Error(`api spec doc file does not exist: ${apiFile}`)
-    }
-    let apiJSON;
-    let schema = undefined;
-    if(isConfig){
-        apiJSON = SwaggerParser.YAML.parse(fs.readFileSync(apiFile, 'utf8'));
-
-        const schemaObject = fs.readFileSync(path.resolve(__dirname, '../schemas/OAS_Config.yaml'), 'utf8');
-        schema = SwaggerParser.YAML.parse(schemaObject);
+/**
+ * Validates the given Swagger API against the OpenApi 3.0.0 schema.
+ *
+ * @param {SwaggerObject} api
+ */
+function validateSchema (api, customSchema) {
+    // Choose the appropriate schema (Swagger or OpenAPI or Custom)
+    console.log("inside ZschemaValidator with ValidateSchema");
+    let schema;
+    if(api) {
+        schema = api.swagger ? openapi.v2 : openapi.v3;
     } else {
-        try {
-            //apiJSON = await parser(apiFile);
-            apiJSON = await SwaggerParser.parse(apiFile);
-            console.log("API name: %s, Version: %s, Type: %s", apiJSON.info.title, apiJSON.info.version, (apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ));
-        } catch (e) {
-            console.log(e);
+        throw('invalid or missing api object input to schema validator')
+    }
+    //schema = customSchema ? customSchema : extendStandardSchema(schema); // use own schema or take in a different schema
+
+    let tempAPI = JSON.parse(JSON.stringify(api));
+    console.log("tempAPi" + tempAPI);
+    // Validate against the schema
+    let isValid = zSchema.validate(tempAPI, schema);
+    if (!isValid) {
+        let err = zSchema.getLastError();
+        throw (`${err}\n` + formatZSchemaError(err.details));
+    } else {
+        return true
+    }
+}
+/**
+ * Performs one-time initialization logic to prepare for Swagger Schema validation.
+ */
+function initializeZSchema () {
+// HACK: Delete the OpenAPI schema IDs because ZSchema can't resolve them
+    delete openapi.v2.id;
+    delete openapi.v3.id;
+    // The OpenAPI 3.0 schema uses "uri-reference" formats.
+    // Assume that any non-whitespace string is valid.
+    //TODO: fix this so uri-reference is of uri format like http(s)://
+    ZSchema.registerFormat("uri-reference", (value) => {
+        return value.trim().length >= 0
+    });
+
+    // Configure ZSchema
+    return new ZSchema({
+        breakOnFirstError: true,
+        noExtraKeywords: true,
+        ignoreUnknownFormats: false,
+        reportPathAsArray: true
+    });
+}
+/**
+ * Z-Schema validation errors are a nested tree structure.
+ * This function crawls that tree and builds an error message string.
+ *
+ * @param {object[]} errors - The Z-Schema error details
+ * @param {string} [indent] - The whitespace used to indent the error message
+ * @returns {string}
+ */
+function formatZSchemaError (errors, indent) {
+    indent = indent || " ";
+    let message = "";
+    for (let error of errors) {
+        message += util.format(`${indent}${error.message} at #/${error.path.join("/")}\n`);
+        if (error.inner) {
+            message += formatZSchemaError(error.inner, indent + " ");
         }
     }
-const a =  validator1(apiJSON, null);
-console.log("updated "+ a);
-if(a){
-   const result =  JSON.stringify({"validated": `${a}`,
-    "DODItem": "OpenAPISchemaValidation",
-    "Description": "Validates API specification with open API SChema",
-    "API name": apiJSON.info.title,
-    "squad": "undefined",
-    "commitID": "commitID",
-    "status": "Passed",
-    "message": `${apiJSON.info.title} validated with open API schema for commitID`
-
-    } )
-    console.log(result);
-    return result;
-    }
+    return message;
 }
-
- return validate(apiFile, false);

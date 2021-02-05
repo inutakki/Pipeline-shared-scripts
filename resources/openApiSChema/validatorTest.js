@@ -32,17 +32,17 @@ async function validate (apiFile, isConfig) {
             console.log(e);
         }
     }
-const a =  validator1.validate(apiJSON, null);
-console.log("updated "+ a);
+const a =  validator1(apiJSON, null);
+//console.log(`updated ${a}`);
 if(a){
-   const result =  JSON.stringify({"validated": a,
+   const result =  JSON.stringify({"validated": `${a}`,
     "DODItem": "OpenAPISchemaValidation",
     "Description": "Validates API specification with open API SChema",
     "API name": apiJSON.info.title,
     "squad": "undefined",
     "commitID": "commitID",
     "status": "Passed",
-    "message": apiJSON.info.title + " validated with open API schema for commitID"
+    "message": `${apiJSON.info.title}` + " validated with open API schema for commitID"
 
     } )
     console.log(result);
