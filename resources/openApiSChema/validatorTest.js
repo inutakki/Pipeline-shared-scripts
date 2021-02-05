@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require("path");
 const ZschemaValidator = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
+const { Console } = require("console");
 
 
 
@@ -48,5 +49,6 @@ async function validate (apiFile, isConfig) {
         })
         return result;
     }
+    console.log(result);
 }
  return validate(apiFile, null);
