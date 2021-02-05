@@ -5,15 +5,10 @@ const { openapi } = require("openapi-schemas");
 const yaml = require("js-yaml");
 const fs = require('fs');
 const path = require("path");
-const ZschemaValidator = require("./zschemaValidator.js")
+const validator1 = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
 
-let apiFile = "./definitions/swagger.yaml"
-if(process.argv[2] != null){
-    console.log(process.argv[2]);
-    apiFile = process.argv[2];
-}
- 
+const apiFile = "./definitions/swagger.yaml"
 const isConfig = false;
 
 async function validate (apiFile, isConfig) {
@@ -37,8 +32,8 @@ async function validate (apiFile, isConfig) {
             console.log(e);
         }
     }
-const a =  ZschemaValidator(apiJSON, null);
-
+const a =  validator1(apiJSON, null);
+console.log("updated "+ a);
 if(a){
    const result =  JSON.stringify({"validated": `${a}`,
     "DODItem": "OpenAPISchemaValidation",
@@ -54,7 +49,5 @@ if(a){
     return result;
     }
 }
-
+console.log(process.argv[2]);
  return validate(apiFile, false);
-
- 
