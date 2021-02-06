@@ -5,7 +5,7 @@ const { openapi } = require("openapi-schemas");
 const yaml = require("js-yaml");
 const fs = require('fs');
 const path = require("path");
-const apiValidator = require("./zschemaValidator.js")
+const zschemaValidator = require("./zschemaValidator.js")
 const SwaggerParser = require("swagger-parser");
 var shell = require('shelljs');
 const { throws } = require("assert");
@@ -38,7 +38,7 @@ async function validate (apiFile, isConfig) {
     }
  let isValid;       
 try{    
-     isValid =  apiValidator(apiJSON, null);
+     isValid =  zschemaValidator(apiJSON, null);
 } catch(error){
     console.log("in error catch block");
     //console.log(JSON.stringify(error))
@@ -76,7 +76,6 @@ else{
 
     }
     return result;
-
 }
 
  return validate(apiFile, false);
