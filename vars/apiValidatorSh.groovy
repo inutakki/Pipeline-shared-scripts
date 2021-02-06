@@ -12,11 +12,11 @@ def call(def apiFile = "./definitions/swagger.yml"){
     try{
 
         sh "cd precommit-dod; npm install";
+       def testResult;
        
-       
-       sh "node precommit-dod/validatorTest.js ${apiFile} ${commitHash} "
-        /*def a = readJson text: testResult;
-        println("${a}");*/
+       sh "node precommit-dod/validatorTest.js ${apiFile} ${commitHash} > testResult"
+        def a = readJson text: testResult;
+        println("${a}");
     } catch(error){
         
         println(error)
