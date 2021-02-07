@@ -17,6 +17,9 @@ def call(def apiFile = "./definitions/swagger.yml"){
        sh "node precommit-dod/validatorTest.js ${apiFile} ${commitHash} > testResult"
         def a = readFile file: "./testResult";
         println("${a}");
+        def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
+        println("Inside Groovy function: "+ jsonResult.validated);
+        println("SUccessfully Completed api SChema Validation");
     } catch(error){
         
         println(error)
@@ -24,5 +27,5 @@ def call(def apiFile = "./definitions/swagger.yml"){
         //currentBuild.result = 'FAILED'
     }
 
-return a;
+return jsonResult;
 }
