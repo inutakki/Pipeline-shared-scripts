@@ -17,7 +17,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
        
        sh "node precommit-dod/validatorTest.js ${apiFile} ${commitHash} > testResult"
         def a = readFile file: "./testResult";
-        def shresult = a.split("\r?\n")
+        shresult = a.split("\r?\n")
         println("${shresult}");
         def jsonResult = new JsonSlurperClassic().parseText(shresult[shresult.length -1])
         println("Inside Groovy function: "+ jsonResult.validated);
