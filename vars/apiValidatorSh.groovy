@@ -15,8 +15,8 @@ def call(def apiFile = "./definitions/swagger.yml"){
        def testResult;
        
        sh "node precommit-dod/validatorTest.js ${apiFile} ${commitHash} > testResult"
-        //def a = readJson text: testResult;
-        println("${testResult}");
+        def a = readJson text: testResult;
+        println("${a}");
     } catch(error){
         
         println(error)
