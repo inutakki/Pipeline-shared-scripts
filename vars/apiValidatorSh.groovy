@@ -24,5 +24,5 @@ def call(def apiFile = "./definitions/swagger.yml"){
         //currentBuild.result = 'FAILED'
     }
 
-//return apiResult[apiResult.length -1];
+return a;
 }
