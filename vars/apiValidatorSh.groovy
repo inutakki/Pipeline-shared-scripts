@@ -9,6 +9,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         writeFile file: "precommit-dod/validatorTest.js", text: validatorTest
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     def apiResult
+    def shresult
     try{
 
         sh "cd precommit-dod; npm install";
