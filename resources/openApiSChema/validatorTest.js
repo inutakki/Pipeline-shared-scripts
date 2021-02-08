@@ -17,6 +17,7 @@ const commitId = `${process.argv[3]}`
 const isConfig = false;
 
 async function validate (apiFile, isConfig) {
+    shell.exec(`echo testing  echo statament`)
     if (!(fs.existsSync(apiFile, 'utf8'))) {
         throw Error(`api spec doc file does not exist: ${apiFile}`)
     }
