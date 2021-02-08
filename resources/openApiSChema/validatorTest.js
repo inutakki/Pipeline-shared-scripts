@@ -30,7 +30,7 @@ async function validate (apiFile, isConfig) {
     } else {
         try {
             apiJSON = await SwaggerParser.parse(apiFile);
-            type = apiJSON.openapi ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ;
+            let type = `${apiJSON.openapi}` ? `openapi ${apiJSON.openapi}` : 'swagger 2.0' ;
             shell.exec("echo API name: $apiJSON.info.title, Version: $apiJSON.info.version, Type: $type");
         } catch (e) {
             console.log(e);
