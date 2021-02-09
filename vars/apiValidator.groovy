@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurperClassic
 def call(def apiFile = "./definitions/swagger.yml"){
-    
-    // some block
+    def location = pwd();
+    println("location: "+ location)
 
     def test = libraryResource 'DOD/API_Schema_Validation/package.json'
        writeFile file: "DOD/API_Schema_Validation/package.json", text: test
@@ -39,5 +39,6 @@ def call(def apiFile = "./definitions/swagger.yml"){
     }
 
 return apiResult[apiResult.length -1];
+    
 
 }
