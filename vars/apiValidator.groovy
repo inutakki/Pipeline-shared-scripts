@@ -3,11 +3,11 @@ def call(def apiFile = "./definitions/swagger.yml"){
     def location = pwd();
     println("location: "+ location)
 
-    def test = libraryResource 'DOD/API_Schema_Validation/package.json'
+    def test = libraryResource 'openApiSChema/package.json'
        writeFile file: "DOD/API_Schema_Validation/package.json", text: test
-    def zschemaValidator = libraryResource 'DOD/API_Schema_Validation/zschemaValidator.js'
+    def zschemaValidator = libraryResource 'openApiSChema/zschemaValidator.js'
        writeFile file: "DOD/API_Schema_Validation/zschemaValidator.js", text: zschemaValidator  
-    def validatorTest = libraryResource 'DOD/API_Schema_Validation/validatorTest.js'
+    def validatorTest = libraryResource 'openApiSChema/validatorTest.js'
         writeFile file: "DOD/API_Schema_Validation/validatorTest.js", text: validatorTest
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     def apiResult
