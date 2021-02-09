@@ -1,18 +1,20 @@
 import groovy.json.JsonSlurperClassic
 def call(def apiFile = "./definitions/swagger.yml"){
+    nodejs('Node 14') {
+    // some block
 
-    def test = libraryResource 'openApiSChema/package.json'
-       writeFile file: "precommit-dod/package.json", text: test
-    def zschemaValidator = libraryResource 'openApiSChema/zschemaValidator.js'
-       writeFile file: "precommit-dod/zschemaValidator.js", text: zschemaValidator  
-    def validatorTest = libraryResource 'openApiSChema/validatorTest.js'
-        writeFile file: "precommit-dod/validatorTest.js", text: validatorTest
+    def test = libraryResource 'DOD/API_Schema_Validation/package.json'
+       writeFile file: "DOD/API_Schema_Validation/package.json", text: test
+    def zschemaValidator = libraryResource 'DOD/API_Schema_Validation/zschemaValidator.js'
+       writeFile file: "DOD/API_Schema_Validation/zschemaValidator.js", text: zschemaValidator  
+    def validatorTest = libraryResource 'DOD/API_Schema_Validation/validatorTest.js'
+        writeFile file: "DOD/API_Schema_Validation/validatorTest.js", text: validatorTest
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     def apiResult
     try{
 
-        sh "cd precommit-dod; npm install";
-        apiResult  = sh(returnStdout: true, script: "node precommit-dod/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
+        sh "cd DOD/API_Schema_Validation; npm install";
+        apiResult  = sh(returnStdout: true, script: "node DOD/API_Schema_Validation/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
         println("result: " + apiResult);
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
         println("Inside Groovy function: "+ jsonResult.validated);
@@ -37,4 +39,5 @@ def call(def apiFile = "./definitions/swagger.yml"){
     }
 
 return apiResult[apiResult.length -1];
+}
 }

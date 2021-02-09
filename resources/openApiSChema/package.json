@@ -12,6 +12,7 @@
     "fs": "0.0.1-security",
     "js-yaml": "^4.0.0",
     "openapi-schemas": "^2.0.4",
+    "openapi-types": "^7.2.3",
     "path": "^0.12.7",
     "shelljs": "^0.8.4",
     "swagger-parser": "^10.0.2",
