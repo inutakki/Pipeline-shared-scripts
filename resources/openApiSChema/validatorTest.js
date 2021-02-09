@@ -22,6 +22,7 @@ async function validate (apiFile, isConfig) {
         throw Error(`api spec doc file does not exist: ${apiFile}`)
     }
     let apiJSON;
+    let result;
     let schema = undefined;
     if(isConfig){
         apiJSON = SwaggerParser.YAML.parse(fs.readFileSync(apiFile, 'utf8'));
@@ -35,6 +36,17 @@ async function validate (apiFile, isConfig) {
             shell.exec(`echo 'API name: ${apiJSON.info.title} Version: ${apiJSON.info.version} Type: ${type}'`);
         } catch (e) {
             console.log(e);
+        console.log("in parse error catch block");
+        result =  JSON.stringify({"validated": "false",
+        "DODItem": "OpenAPISchemaValidation",
+        "Description": "Validates API specification with open API SChema",
+        "API name": apiJSON.info.title,
+        "squad": "undefined",
+        "commitID": commitId,
+        "status": "Failed",
+        "message": `Error: ${e} while ${apiJSON.info.title} validating with open API schema for ${commitId}`
+        })
+        console.log(result)
             throw e;
         }
     }
@@ -43,11 +55,20 @@ try{
      isValid =  zschemaValidator(apiJSON, null);
 } catch(error){
     console.log("in error catch block");
-    //console.log(JSON.stringify(error))
+    result =  JSON.stringify({"validated": "false",
+    "DODItem": "OpenAPISchemaValidation",
+    "Description": "Validates API specification with open API SChema",
+    "API name": apiJSON.info.title,
+    "squad": "undefined",
+    "commitID": commitId,
+    "status": "Failed",
+    "message": `Error: ${error} while ${apiJSON.info.title} validating with open API schema for ${commitId}`
+})
+    console.log(result)
     throw error;  // generates an error object 
 
 }
-let result;
+
 if(isValid){
     result =  JSON.stringify({"validated": `${isValid}`,
     "DODItem": "OpenAPISchemaValidation",
