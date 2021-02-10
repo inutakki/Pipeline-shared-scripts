@@ -12,8 +12,8 @@ def call(def apiFile = "./definitions/swagger.yml"){
         def commitHash = sh (returnStdout: true, script:"git log -n 1 --pretty=format:'%H'")
     def apiResult
     try{
-
-        sh "cd DOD/API_Schema_Validation; npm install; node validatorTest.js ${apiFile} ${commitHash}"
+        sh "cd DOD/API_Schema_Validation; npm install"
+        sh "node DOD/API_Schema_Validation/validatorTest.js ${apiFile} ${commitHash}"
 
        /* sh "cd DOD/API_Schema_Validation; npm install";
         apiResult  = sh(returnStdout: true, script: "node DOD/API_Schema_Validation/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
