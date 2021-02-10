@@ -40,11 +40,11 @@ async function validate (apiFile, isConfig) {
         result =  JSON.stringify({"validated": "false",
         "DODItem": "OpenAPISchemaValidation",
         "Description": "Validates API specification with open API SChema",
-        "API name": apiJSON.info.title,
+        "API name": "",
         "squad": "undefined",
         "commitID": commitId,
         "status": "Failed",
-        "message": `Error: ${e} while ${apiJSON.info.title} validating with open API schema for ${commitId}`
+        "message": `Error: ${e} while  validating with open API schema for ${commitId}`
         })
         console.log(result)
             throw e;
