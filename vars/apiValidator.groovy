@@ -18,10 +18,10 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("result: " + apiResult);
 
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
-        println("Inside Groovy function: "+ jsonResult.validated);
+        println("Inside Groovy function: "+ jsonResult.statusCheck);
         println("SUccessfully Completed api SChema Validation");
-        if(!jsonResult.validated){
-            throw new Error(jsonResult.message)
+        if(!jsonResult.status){
+            throw new Error("open API schema validation failed")
         }
         
         /*def apiResult  = sh(returnStdout: true, script: "node validatorTest.js ${apiFile} ${commitHash}").split("\r?\n")       
@@ -38,8 +38,9 @@ def call(def apiFile = "./definitions/swagger.yml"){
     } catch(error){
         
         println(error)
-        throw error
         currentBuild.result = 'FAILED'
+        throw error
+        
     }
 
 return apiResult[apiResult.length -1];

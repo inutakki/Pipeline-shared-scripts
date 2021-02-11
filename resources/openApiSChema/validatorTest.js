@@ -49,20 +49,20 @@ async function validate (apiFile, isConfig) {
             }
         }
           
-    try{    
-        isValid =  zschemaValidator(apiJSON, null);
-        result['status'] =  'PASSED'
-        result['message'] =  'Open API Schema validation Check passed'
-    } catch(error){
-        console.log("in error catch block");
-        result['status'] =  'FAILED'
-        result['message'] =  `Error: Error while validaing Swagger.yaml file: ${error.getMessage()}`
-        throw error;  // generates an error object 
-    }
+        try{    
+            isValid =  zschemaValidator(apiJSON, null);
+            result['status'] =  'PASSED'
+            result['message'] =  'Open API Schema validation Check passed'
+        } catch(error){
+            console.log("in error catch block");
+            result['status'] =  'FAILED'
+            result['message'] =  `Error: Error while validaing Swagger.yaml file: ${error.getMessage()}`
+            throw error;  // generates an error object 
+        }
     // return result;
     } finally{
-        const jsonResult = JSON.stringify(result)
-        console.log (jsonResult);
+        
+        console.log (result);
     }
 }
  return validate(apiFile, false);
