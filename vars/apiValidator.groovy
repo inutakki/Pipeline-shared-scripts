@@ -1,7 +1,5 @@
 import groovy.json.JsonSlurperClassic
 def call(def apiFile = "./definitions/swagger.yml"){
-    def location = pwd();
-    println("location: "+ location)
 
     def test = libraryResource 'openApiSChema/package.json'
        writeFile file: "DOD/API_Schema_Validation/package.json", text: test
