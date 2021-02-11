@@ -18,7 +18,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("result: " + apiResult);
 
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
-        println("Inside Groovy function: "+ jsonResult.statusCheck);
+        println("Inside Groovy function: "+ jsonResult.status);
         println("SUccessfully Completed api SChema Validation");
         if(!jsonResult.status){
             throw new Error("open API schema validation failed")
