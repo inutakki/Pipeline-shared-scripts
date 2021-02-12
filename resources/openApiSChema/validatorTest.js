@@ -71,5 +71,5 @@ validate(apiFile, false)
     //console.log(response);
     return ;
 }).catch((e)=>{
-    return ;
+    return e;
 });
