@@ -56,7 +56,8 @@ async function validate (apiFile, isConfig) {
         } catch(error){
             console.log("in error catch block");
             result['status'] =  'FAILED'
-            result['message'] =  `Error: Error while validaing Swagger.yaml file: ${error.getMessage()}`
+            result['message'] =  `Error: Error while validaing Swagger.yaml file: ${error}`
+            
             throw error;  // generates an error object 
         }
     return result;
