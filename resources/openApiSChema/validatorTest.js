@@ -65,4 +65,10 @@ async function validate (apiFile, isConfig) {
         console.log (JSON.stringify(result));
     }
 }
- return validate(apiFile, false);
+validate(apiFile, false)
+.then((response)=>{
+    console.log(response);
+    return JSON.stringify(response);
+}).catch((e)=>{
+    return e;
+});
