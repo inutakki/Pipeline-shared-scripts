@@ -59,7 +59,7 @@ async function validate (apiFile, isConfig) {
             result['message'] =  `Error: Error while validaing Swagger.yaml file: ${error.getMessage()}`
             throw error;  // generates an error object 
         }
-    // return result;
+    return result;
     } finally{
         
         console.log (JSON.stringify(result));
