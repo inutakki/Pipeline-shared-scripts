@@ -17,7 +17,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         apiResult  = sh(returnStdout: true, script: "node DOD/API_Schema_Validation/validatorTest.js ${apiFile} ${commitHash}").split("\r?\n") 
         println("result: " + apiResult);
         def test1 = readFile file: 'config.yml'
-        def yamlText = readYAML text: test1
+        def yamlText = readYaml text: test1
         def yamlinfo = yamlText.info?yamlText.info.split(","):""
         println("info: "+ yamlinfo)
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
