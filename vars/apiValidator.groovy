@@ -22,7 +22,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         /*if(yamlinfo){
             println("info: "+ yamlinfo.join(",")
         }*/
-        
+        println("info: "+ yamlinfo)
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
         println("Inside Groovy function: "+ jsonResult.status);
         println("SUccessfully Completed api SChema Validation");
