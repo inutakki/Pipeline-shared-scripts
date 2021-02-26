@@ -18,7 +18,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("result: " + apiResult);
         def test1 = readFile file: 'config.yml'
         def yamlText = readYaml text: test1
-        def yamlinfo = yamlText.info?yamlText.info:""
+        def yamlinfo = yamlText.info?(yamlText.info).split(","):""
         println("info: "+ yamlinfo)
         def jsonResult = new JsonSlurperClassic().parseText(apiResult[apiResult.length -1])
         println("Inside Groovy function: "+ jsonResult.status);
