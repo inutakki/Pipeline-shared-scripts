@@ -18,7 +18,7 @@ def call(def apiFile = "./definitions/swagger.yml"){
         println("result: " + apiResult);
         def test1 = readFile file: 'config.yml'
         def yamlText = readYaml text: test1
-        def yamlinfo = yamlText.info?.(yamlText.info).join(","):""
+        def yamlinfo = yamlText.info?(yamlText.info).join(","):""
         /*if(yamlinfo){
             println("info: "+ yamlinfo.join(",")
         }*/
