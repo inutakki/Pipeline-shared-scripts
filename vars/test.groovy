@@ -4,7 +4,7 @@ import com.cloudbees.groovy.cps.NonCPS
 
 
 @NonCPS
-		def getBuildtriggerCause(){
+		def call(){
 		startedByTimer = false
 		def buildCauses = currentBuild.rawBuild.getCauses()
 		for ( buildCause in buildCauses ) {
