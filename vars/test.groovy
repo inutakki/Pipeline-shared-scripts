@@ -14,6 +14,9 @@ import com.cloudbees.groovy.cps.NonCPS
 					println("triggered by user")
 					println(buildCause.getUserId())
 				}
+				if( buildCause instanceof jenkins.branch.BranchIndexingCause){
+					println("triggered by branchindex")
+				}
 				causeDescription = buildCause.getShortDescription()
 				if (causeDescription.contains("Started by timer")) {
 					startedByTimer = true
