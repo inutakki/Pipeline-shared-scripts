@@ -12,6 +12,7 @@ import com.cloudbees.groovy.cps.NonCPS
 			if (buildCause != null) {
 				if( buildCause instanceof hudson.model.Cause$UserIdCause){
 					println("triggered by user")
+					println(buildCause.getUserId())
 				}
 				causeDescription = buildCause.getShortDescription()
 				if (causeDescription.contains("Started by timer")) {
