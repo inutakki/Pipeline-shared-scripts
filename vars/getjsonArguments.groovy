@@ -5,7 +5,7 @@ def call(){
    def buildProps = [:]
   buildProps.put("buildNumber","${env.BUILD_NUMBER}")
   //def jsonProps = JsonOutput.toJson(["json_Props": [buildProps]])
-   json jsonProps = JsonOutput.toJson(buildProps)
+  def jsonProps = JsonOutput.toJson(buildProps)
   println("class in groovy"+ jsonProps.getClass())
    println("jsonProps: ${jsonProps}")
    def test = libraryResource 'sample.js'
