@@ -2,6 +2,15 @@ const jsonargs = `${process.argv[2]}`
 
 function getJsonArgs(jsonargs){
   
+  fs.readFile("./sample.json", 'utf8', (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+    let jsonargs = JSON.parse(result)
+    console.log(jsonargs)
+    console.log(typeof(jsonargs))
+      
+    })
   let temp = JSON.parse(jsonargs)
  
   console.log(temp)
