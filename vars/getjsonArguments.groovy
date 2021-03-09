@@ -3,7 +3,7 @@ import groovy.json.JsonBuilder
 
 def call(){
    def buildProps = [:]
-  buildProps.put("\\\"buildNumber\\\"","\\\"${env.BUILD_NUMBER}\\\"")
+  buildProps.put("\"buildNumber\"","\"${env.BUILD_NUMBER}\"")
   //def jsonProps = JsonOutput.toJson(["json_Props": [buildProps]])
   def jsonProps = JsonOutput.toJson(buildProps)
   println("class in groovy"+ jsonProps.getClass())
