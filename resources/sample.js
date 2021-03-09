@@ -10,13 +10,13 @@ function getJsonArgs(jsonargs){
     let jsonargs = JSON.parse(result)
     console.log(jsonargs)
     console.log(typeof(jsonargs))
-      
+     let temp = JSON.parse(jsonargs)  
     })
-  let temp = JSON.parse(jsonargs)
  
+  /*let temp = JSON.parse(jsonargs)
   console.log(temp)
   console.log(typeof(temp))
-  console.log(temp.buildNumber)
+  console.log(temp.buildNumber)*/
   
   
 }
