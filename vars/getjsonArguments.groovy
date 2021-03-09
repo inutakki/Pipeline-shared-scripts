@@ -6,7 +6,7 @@ def call(){
    def buildPropsarray = []
    buildProps.put("\"buildNumber\"","\"${env.BUILD_NUMBER}\"")
    buildProps.put("\"displayName\"", "\"${env.JOB_NAME}\"")
-  def jsonProps = JsonOutput.toJson(["json_Props": [buildProps]])
+  def jsonProps = JsonOutput.toJson(buildProps)
   // def jsonProps = JsonOutput.toJson(buildProps)
    //jsonProps = JsonOutput.prettyPrint(jsonProps).toString()
   // def jsonProps = new JsonBuilder(buildProps).
