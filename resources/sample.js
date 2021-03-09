@@ -1,7 +1,7 @@
 const fs = require('fs');
 const jsonargs = `${process.argv[2]}`
 
-function getJsonArgs(jsonargs){
+function getJsonArgs(){
   
   fs.readFile("./sampleTest.json", 'utf8', (err, result) => {
       if (err) {
@@ -11,7 +11,7 @@ function getJsonArgs(jsonargs){
     console.log(jsonargs)
     console.log(typeof(jsonargs))
      let temp = JSON.parse(jsonargs)
-     console.log(temp.buildNumber)
+     console.log(`${temp.buildNumber}`)
     })
  
   /*let temp = JSON.parse(jsonargs)
@@ -21,4 +21,4 @@ function getJsonArgs(jsonargs){
   
   
 }
-getJsonArgs(jsonargs)
+getJsonArgs()
