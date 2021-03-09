@@ -7,7 +7,7 @@ def call(){
    buildProps.put("\"buildNumber\"","\"${env.BUILD_NUMBER}\"")
    buildProps.put("\"displayName\"", "\"${env.JOB_NAME}\"")
   def jsonProps = JsonOutput.toJson(buildProps)
-   writeFile file: sample.yaml text: jsonProps
+   writeFile file: 'sample.yaml' text: jsonProps
   // def jsonProps = JsonOutput.toJson(buildProps)
    //jsonProps = JsonOutput.prettyPrint(jsonProps).toString()
   // def jsonProps = new JsonBuilder(buildProps).
