@@ -1,3 +1,4 @@
+const fs = require('fs');
 const jsonargs = `${process.argv[2]}`
 
 function getJsonArgs(jsonargs){
