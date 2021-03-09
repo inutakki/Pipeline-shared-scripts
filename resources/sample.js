@@ -4,6 +4,7 @@ function getJsonArgs(jsonargs){
   
   let temp = JSON.parse(jsonargs)
   console.log(temp)
+  console.log(temp.buildNumber)
   console.log(typeof(temp))
   
 }
