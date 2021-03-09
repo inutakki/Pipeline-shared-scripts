@@ -3,7 +3,7 @@ const jsonargs = `${process.argv[2]}`
 
 function getJsonArgs(jsonargs){
   
-  fs.readFile("./sample.json", 'utf8', (err, result) => {
+  fs.readFile("./sampletest.json", 'utf8', (err, result) => {
       if (err) {
         console.log(err);
       }
