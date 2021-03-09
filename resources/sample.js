@@ -4,7 +4,7 @@ function getJsonArgs(jsonargs){
   
   let temp = JSON.stringify(jsonargs)
   console.log(temp)
-  cconsole.log(typeof(temp))
+  console.log(typeof(temp))
   
 }
 getJsonArgs(jsonargs)
