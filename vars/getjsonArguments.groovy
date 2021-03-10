@@ -4,7 +4,7 @@ import groovy.json.JsonBuilder
 def call(){
    def buildProps = [:]
    def buildPropsarray = []
-   println(process.env.BUILD_NUMBER)
+  // println(process.env.BUILD_NUMBER)
    buildProps.put("buildNumber","${env.BUILD_NUMBER}")
    buildProps.put("displayName", "${env.JOB_NAME}")
   def jsonProps = JsonOutput.toJson(buildProps)
