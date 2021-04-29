@@ -3,6 +3,8 @@ const jsonargs = `${process.argv[2]}`
 
 function getJsonArgs(){
   console.log(process.env.BUILD_NUMBER)
+  console.log(process.env.DB_USER)
+  console.log(process.env.DB_PASSWORD)
   fs.readFile("./sampleTest.json", 'utf8', (err, result) => {
       if (err) {
         console.log(err);
